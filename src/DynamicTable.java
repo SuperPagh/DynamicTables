@@ -11,33 +11,41 @@ public class DynamicTable<E> {
 
     private Object elements[];
 
-    public DynamicTable(Object... objects) {
+    public DynamicTable(E... es) {
         //Update currentSize to appropriate value according to number of objects
-        if(objects.length > MIN_SIZE) {
+        if(es.length > MIN_SIZE) {
             //If there are more objects than MIN_SIZE, find the nearest, greater power of 2.
-            currentSize = (int) Math.pow(2, 32 - Integer.numberOfLeadingZeros(objects.length - 1));
+            currentSize = (int) Math.pow(2, 32 - Integer.numberOfLeadingZeros(es.length - 1));
         } else {
             //If there are less objects than MIN_SIZE, set currentSize to MIN_SIZE;
             currentSize = MIN_SIZE;
         }
 
         //Initialize internal array to currentSize.
-        elements = new Object[currentSize];
+        elements = Arrays.copyOf(es, currentSize);
         //Initialize currentItems to number of objects
-        currentItems = objects.length;
+        currentItems = es.length;
     }
 
-    public void add(Object... objects) {
+    public void add(E... es) {
         //Check if current array is big enough
-        if(currentItems + objects.length > currentSize) {
+        if(currentItems + es.length > currentSize) {
             doubleArray();
         }
 
         //Add all elements to array
-        for(int i = 0; i < objects.length; i++) {
-            elements[currentItems + i] = objects[i];
+        for(int i = 0; i < es.length; i++) {
+            elements[currentItems + i] = es[i];
             currentItems++;
         }
+    }
+
+    public E get(int i) {
+        if(i >= currentItems || i < 0) {
+            throw new IndexOutOfBoundsException("Element number " + i + " does not exist."
+            + " Table only holds " + currentItems + " elements.");
+        }
+        return (E) elements[i];
     }
 
     public void deleteLast() {
@@ -77,9 +85,7 @@ public class DynamicTable<E> {
     protected void halveArray() {
         int newSize = currentSize / 2;
         //Keep size higher than MIN_SIZE
-        if(newSize < MIN_SIZE) {
-            return;
-        } else {
+        if(!(newSize < MIN_SIZE)) {
             //Copy elements into new array of half the size
             elements = Arrays.copyOf(elements, newSize);
 

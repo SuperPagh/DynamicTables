@@ -35,6 +35,9 @@ public class IntegerExample {
                             //And the size of the allocated table
                     table.printSizes();
                     break;
+                case "G": //Get the element on the i'th place. i is the following integer.
+                    System.out.println(table.get((Integer.parseInt(tokens.nextToken()))));
+                    break;
             }
         }
     }
