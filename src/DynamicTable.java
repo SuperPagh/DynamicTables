@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 /**
- * Created by Pagh on 10-Sep-16.
+ * Created by SuperPagh on 10-Sep-16.
  */
 public class DynamicTable<E> {
     private static final int MIN_SIZE = 1;
