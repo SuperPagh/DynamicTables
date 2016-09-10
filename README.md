@@ -1,4 +1,6 @@
-Implementation exercise for datastructures course. Exercise description underneath
+Implementation exercise for datastructures course. Exercise description below.
+I thought it was boring to it only for the primitive type int, so I decided to use generic types.
+We were given the sketeton file DynamicTable.java, which is found next to the readme file in this repo.
 
 
 ## Exercise
